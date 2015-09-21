@@ -2,15 +2,15 @@
   <input type="text" placeholder="Steam Profile ID" ng-model="profile_id" />
   <button type="button" ng-click="loadInventory()">Load Inventory</button>
 
+  <p>My Pot: {{ getPotSum() }}€</p>
+
   <ul>
     <li ng-repeat="item in inventory.items" style="width: 250px; height: 150px;
     float: left; margin: 5px; border: 1px solid magenta;
     padding: 10px; list-style: none;
-    background: #aaa;">
+    background: #aaa;" ng-click="toggleSelected(item)" ng-init="getMarketInfos(item, $index)">
       {{ item.market_name }}
-      <div ng-init="marketData = getMarketInfos(item, $index)">
         Price: {{ item.price }}
-      </div>
     </li>
   </ul>
 

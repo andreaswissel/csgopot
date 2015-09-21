@@ -15,6 +15,29 @@ angular.module('myApp.view1', ['ngRoute', 'ngResource'])
     items: []
   };
 
+  $scope.selectedItems = [];
+
+  $scope.getPotSum = function() {
+    $scope.potSum = 0;
+    if($scope.selectedItems.length > 0) {
+      _.forEach($scope.selectedItems, function(item) {
+        $scope.potSum = parseFloat(item.price.replace('€', '').replace(',','.')) + $scope.potSum;
+      });
+    }
+
+    return $scope.potSum;
+  };
+
+  $scope.toggleSelected = function(item) {
+    var index = _.findIndex($scope.selectedItems, { classid: item.classid });
+    if(index > -1) {
+      delete $scope.selectedItems[index];
+    } else {
+      $scope.selectedItems.push(item);
+      $scope.getPotSum();
+    }
+  }
+
   $scope.profile_id = 'mr_manix';
 
   $scope.loadInventory = function() {
